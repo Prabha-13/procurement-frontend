@@ -21,7 +21,7 @@ export default function MyRequisitions({ mode, setMode }) {
   const fetchData = async () => {
     try {
       const res = await axios.get(
-        "https://procurement-cm78.onrender.com",
+        "https://procurement-cm78.onrender.com/requisitions/my",
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -35,7 +35,7 @@ export default function MyRequisitions({ mode, setMode }) {
   const submitRequisition = async (id) => {
   try {
     await axios.put(
-      `http://127.0.0.1:8000/requisitions/${id}/submit`,
+      `https://procurement-cm78.onrender.com/requisitions/${id}/submit`,
       {},
       {
         headers: {

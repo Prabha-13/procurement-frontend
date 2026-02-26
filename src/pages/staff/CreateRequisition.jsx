@@ -15,7 +15,7 @@ const CreateRequisition = () => {
 
   const createRequisition = async () => {
     await axios.post(
-      "https://procurement-cm78.onrender.com",
+      "https://procurement-cm78.onrender.com/requisitions/",
       { title, description },
       {
         headers: {

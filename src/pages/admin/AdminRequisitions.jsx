@@ -27,7 +27,7 @@ export default function AdminRequisitions() {
       setLoading(true);
 
       const res = await axios.get(
-        "https://procurement-cm78.onrender.com",
+        "https://procurement-cm78.onrender.com/requisitions/all",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -49,7 +49,7 @@ export default function AdminRequisitions() {
   const approve = async (id) => {
     try {
       const res = await axios.put(
-        `http://127.0.0.1:8000/requisitions/${id}/approve`,
+        `https://procurement-cm78.onrender.com/requisitions/${id}/approve`,
         {},
         {
           headers: {
@@ -70,7 +70,7 @@ export default function AdminRequisitions() {
   const reject = async (id) => {
     try {
       const res = await axios.put(
-        `http://127.0.0.1:8000/requisitions/${id}/reject`,
+        `https://procurement-cm78.onrender.com/requisitions/${id}/reject`,
         {},
         {
           headers: {

@@ -38,7 +38,7 @@ const PurchaseOrders = () => {
       setLoading(true);
 
       const res = await axios.get(
-        `${API}/purchase-orders/`,   // ✅ Correct endpoint
+        `${API}/purchase-orders/all`,   // ✅ Correct endpoint
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`

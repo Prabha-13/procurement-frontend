@@ -5,14 +5,21 @@ import {
   Paper,
   Box,
   Chip,
-  Stack
+  Stack,
+  CircularProgress
 } from "@mui/material";
 import DashboardLayout from "../../layout/DashboardLayout";
+
+const API = "https://procurement-cm78.onrender.com";
 
 const statusColor = (status) => {
   switch (status) {
     case "created":
       return "warning";
+    case "approved":
+      return "success";
+    case "rejected":
+      return "error";
     default:
       return "default";
   }
@@ -20,21 +27,34 @@ const statusColor = (status) => {
 
 const PurchaseOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchOrders();
   }, []);
 
   const fetchOrders = async () => {
-    const res = await axios.get(
-      "https://procurement-cm78.onrender.com/purchase-orders/",
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+    try {
+      setLoading(true);
+
+      const res = await axios.get(
+        `${API}/purchase-orders/`,   // ✅ Correct endpoint
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
         }
-      }
-    );
-    setOrders(res.data);
+      );
+
+      console.log("PO Response:", res.data);
+      setOrders(res.data);
+
+    } catch (err) {
+      console.log("PO Fetch Error:", err.response?.data);
+      alert("Failed to load Purchase Orders");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,25 +64,45 @@ const PurchaseOrders = () => {
       </Typography>
 
       <Paper sx={{ p: 4 }}>
-        {orders.length === 0 ? (
+        {loading ? (
+          <CircularProgress />
+        ) : orders.length === 0 ? (
           <Typography>No Purchase Orders Available</Typography>
         ) : (
           orders.map((order) => (
-            <Box key={order.id} sx={{ mb: 3 }}>
-              <Typography>
-                Requisition ID: {String(order.requisition_id).slice(0, 8)}...
-              </Typography>
-              <Typography>
-                Vendor ID: {String(order.vendor_id).slice(0, 8)}...
-              </Typography>
-              <Typography>
-                Created: {new Date(order.created_at).toLocaleString()}
-              </Typography>
+            <Box
+              key={order.id}
+              sx={{
+                mb: 3,
+                p: 2,
+                borderRadius: 3,
+                background: "#1e293b",
+                color: "white"
+              }}
+            >
+              <Stack spacing={1}>
+                <Typography>
+                  <strong>PO ID:</strong> {order.id}
+                </Typography>
 
-              <Chip
-                label={order.status.toUpperCase()}
-                color={statusColor(order.status)}
-              />
+                <Typography>
+                  <strong>Requisition ID:</strong> {order.requisition_id}
+                </Typography>
+
+                <Typography>
+                  <strong>Vendor ID:</strong> {order.vendor_id}
+                </Typography>
+
+                <Typography>
+                  <strong>Created At:</strong>{" "}
+                  {new Date(order.created_at).toLocaleString()}
+                </Typography>
+
+                <Chip
+                  label={order.status.toUpperCase()}
+                  color={statusColor(order.status)}
+                />
+              </Stack>
             </Box>
           ))
         )}

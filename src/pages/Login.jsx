@@ -32,7 +32,7 @@ export default function Login() {
       params.append("password", password);
 
       const res = await axios.post(
-        "https://procurement-cm78.onrender.com",
+        "https://procurement-cm78.onrender.com/login",
         params,
         {
           headers: {

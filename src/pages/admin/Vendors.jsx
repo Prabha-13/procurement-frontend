@@ -26,7 +26,7 @@ const Vendors = () => {
   }, []);
 
   const fetchVendors = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/vendors/", {
+    const res = await axios.get("https://procurement-cm78.onrender.com/vendors/", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
@@ -36,7 +36,7 @@ const Vendors = () => {
 
   const createVendor = async () => {
     await axios.post(
-      "https://procurement-cm78.onrender.com",
+      "https://procurement-cm78.onrender.com/vendors/",
       form,
       {
         headers: {

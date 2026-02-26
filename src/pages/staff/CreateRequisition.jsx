@@ -15,7 +15,7 @@ const CreateRequisition = () => {
 
   const createRequisition = async () => {
     await axios.post(
-      "http://127.0.0.1:8000/requisitions/",
+      "https://procurement-cm78.onrender.com",
       { title, description },
       {
         headers: {

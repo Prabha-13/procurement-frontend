@@ -27,7 +27,7 @@ const PurchaseOrders = () => {
 
   const fetchOrders = async () => {
     const res = await axios.get(
-      "http://127.0.0.1:8000/purchase-orders/all",
+      "https://procurement-cm78.onrender.com",
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`

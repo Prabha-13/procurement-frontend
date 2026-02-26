@@ -30,7 +30,7 @@ const Requisitions = () => {
   const fetchRequisitions = async () => {
     try {
       const res = await axios.get(
-        "http://127.0.0.1:8000/requisitions/",
+        "https://procurement-cm78.onrender.com",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`

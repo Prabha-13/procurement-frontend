@@ -21,7 +21,7 @@ export default function MyRequisitions({ mode, setMode }) {
   const fetchData = async () => {
     try {
       const res = await axios.get(
-        "http://127.0.0.1:8000/requisitions/my",
+        "https://procurement-cm78.onrender.com",
         {
           headers: { Authorization: `Bearer ${token}` }
         }
